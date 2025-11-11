@@ -124,7 +124,7 @@ public sealed class Plugin : IDalamudPlugin {
         // when right-clicking ingredients in the crafting log), but for now
         // it's good enough
         var (itemId, itemKind) = ItemUtil.GetBaseId((uint) GameGui.HoveredItem);
-        if (itemKind != ItemKind.Normal && itemKind != ItemKind.Hq) {
+        if (itemId == 0 || (itemKind != ItemKind.Normal && itemKind != ItemKind.Hq)) {
             return;
         }
 
