@@ -109,7 +109,10 @@ public sealed class Plugin : IDalamudPlugin {
             return;
         }
 
-        tooltipTitleAtk->SetText(Util.BuildRainbowSeString(tooltipTitleAtk->GetText().ExtractText()));
+        var itemName = tooltipTitleAtk->GetText().ExtractText();
+        // strip newlines, otherwise long item names that already have one will end up with one more
+        itemName = itemName.Replace("\n", string.Empty);
+        tooltipTitleAtk->SetText(Util.BuildRainbowSeString(itemName));
     }
 
     private unsafe void ItemDetailPostDraw(AddonEvent type, AddonArgs args) {
@@ -133,14 +136,11 @@ public sealed class Plugin : IDalamudPlugin {
         }
 
         var menuItem = new MenuItem {
-            Name = !Configuration.ImportantItems.Contains(itemId)
-                       ? "Add very important item"
-                       : "Remove very important item",
+            Name = !Configuration.ImportantItems.Contains(itemId) ? "Add Very Important Item" : "Remove Very Important Item",
             PrefixChar = 'V',
             PrefixColor = 522,
             OnClicked = _ => {
-                var itemName = DataManager.Excel.GetSheet<Item>().GetRowOrDefault(itemId)?.Name.ExtractText() ??
-                               "<invalid item>";
+                var itemName = DataManager.Excel.GetSheet<Item>().GetRowOrDefault(itemId)?.Name.ExtractText() ?? "<invalid item>";
                 if (!Configuration.ImportantItems.Contains(itemId)) {
                     Configuration.ImportantItems.Add(itemId);
                     ChatGui.Print($"{itemName} added to the list of very important items.");
