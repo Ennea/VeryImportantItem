@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Components;
+using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 using Lumina.Excel.Sheets;
@@ -42,6 +44,13 @@ public class MainWindow : Window, IDisposable {
             configuration.PlaySoundEffect = playSoundEffect;
             configuration.Save();
         }
+
+        var addContextMenuEntries = configuration.AddContextMenuEntries;
+        if (ImGui.Checkbox("Add entries to item context menus", ref addContextMenuEntries)) {
+            configuration.AddContextMenuEntries = addContextMenuEntries;
+            configuration.Save();
+        }
+        ImGuiComponents.HelpMarker("Adds entries to item context menus that allow adding and removing very important items.");
 
         // item form
         ImGui.Separator();

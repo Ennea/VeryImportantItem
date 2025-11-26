@@ -120,6 +120,10 @@ public sealed class Plugin : IDalamudPlugin {
     }
 
     private void ContextMenuOpened(IMenuOpenedArgs args) {
+        if (!Configuration.AddContextMenuEntries) {
+            return;
+        }
+
         // grabbing `HoveredItem` isn't consistent (e.g. it's randomly (?) 0
         // when right-clicking ingredients in the crafting log), but for now
         // it's good enough

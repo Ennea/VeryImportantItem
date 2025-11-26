@@ -10,6 +10,7 @@ public class Configuration : IPluginConfiguration {
 
     public bool HighlightItemNamesInTooltips { get; set; } = true;
     public bool PlaySoundEffect { get; set; } = true;
+    public bool AddContextMenuEntries { get; set; } = true;
     public List<uint> ImportantItems { get; set; } = [];
 
     public void Save() {
