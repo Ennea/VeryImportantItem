@@ -8,5 +8,6 @@
         "tooltip",
         "items"
     ],
-    "RepoUrl": "https://github.com/Ennea/VeryImportantItem"
+    "RepoUrl": "https://github.com/Ennea/VeryImportantItem",
+    "TestingDalamudApiLevel": 14
 }
