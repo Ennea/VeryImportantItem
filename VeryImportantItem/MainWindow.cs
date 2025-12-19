@@ -3,7 +3,6 @@ using System.Linq;
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Components;
-using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 using Lumina.Excel.Sheets;
@@ -55,13 +54,12 @@ public class MainWindow : Window, IDisposable {
         // item form
         ImGui.Separator();
         ImGui.Text("Item name or ID:");
-        bool pressedEnter;
         using (ImRaii.ItemWidth(200)) {
-            pressedEnter = ImGui.InputText("##itemNameOrID", ref itemNameOrId, flags: ImGuiInputTextFlags.EnterReturnsTrue);
+            ImGui.InputText("##itemNameOrID", ref itemNameOrId);
         }
 
         ImGui.SameLine();
-        if (ImGui.Button("Add item") || pressedEnter) {
+        if (ImGui.Button("Add item") && itemNameOrId != "") {
             var inputIsId = uint.TryParse(itemNameOrId, out var inputItemId);
             var items = Plugin.DataManager.Excel.GetSheet<Item>().Where(item => {
                 if (inputIsId) {
