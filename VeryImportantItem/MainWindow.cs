@@ -59,7 +59,7 @@ public class MainWindow : Window, IDisposable {
         }
 
         ImGui.SameLine();
-        if (ImGui.Button("Add item") && itemNameOrId != "") {
+        if (ImGui.Button("Add item") && itemNameOrId != string.Empty) {
             var inputIsId = uint.TryParse(itemNameOrId, out var inputItemId);
             var items = Plugin.DataManager.Excel.GetSheet<Item>().Where(item => {
                 if (inputIsId) {
